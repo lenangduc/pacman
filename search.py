@@ -127,12 +127,12 @@ def breadthFirstSearch(problem):
     while not mystack.isEmpty():
         currentNode = mystack.pop()
         actions = path.pop()
-        if currentNode not in visited:
-            visited.append(currentNode)
-
-            if problem.isGoalState(currentNode):
+        if problem.isGoalState(currentNode):
                 return actions
 
+        if currentNode not in visited:
+            visited.append(currentNode)
+            
             for nextNode, action, cost in problem.getSuccessors(currentNode):
                 newAction = actions + [action]
                 mystack.push(nextNode)
@@ -155,12 +155,13 @@ def uniformCostSearch(problem):
     while not mystack.isEmpty():
         currentNode, costNow = mystack.pop()
         actions, costNow1 = path.pop()
-        if currentNode not in visited:
-            visited.append(currentNode)
 
-            if problem.isGoalState(currentNode):
+        if problem.isGoalState(currentNode):
                 return actions
 
+        if currentNode not in visited:
+            visited.append(currentNode)
+            
             for nextNode, action, cost in problem.getSuccessors(currentNode):
                 newAction = actions + [action]
                 newCost = costNow + cost 
@@ -191,11 +192,12 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     while not mystack.isEmpty():
         currentNode, costNow = mystack.pop()
         actions, costNow1 = path.pop()
+
+        if problem.isGoalState(currentNode):
+                return actions
+
         if currentNode not in visited:
             visited.append(currentNode)
-
-            if problem.isGoalState(currentNode):
-                return actions
 
             for nextNode, action, cost in problem.getSuccessors(currentNode):
                 newAction = actions + [action]
